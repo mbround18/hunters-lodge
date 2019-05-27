@@ -93,8 +93,6 @@ task('default', ['clean', 'create-map'], async context => {
 task('dist', ['clean', 'create-map'], async context => {
   context.isProduction = true;
   const fuse = context.getConfig();
-  fuse.dev(); // remove it later
-
   context.createBundle(fuse);
   await fuse.run();
 });
