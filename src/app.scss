@@ -1,0 +1,14 @@
+#nav {
+  color: purple;
+}
+
+$scaling: 80;
+$width: $scaling * 1.78;
+$height: $scaling;
+
+.leaflet-container {
+  margin-left: auto;
+  margin-right: auto;
+  height: $height * 1vh;
+  width: $width;
+}
