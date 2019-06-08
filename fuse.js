@@ -8,7 +8,11 @@ const {
   ImageBase64Plugin,
   QuantumPlugin
 } = require('fuse-box');
-const { src, task, context } = require('fuse-box/sparky');
+const {
+  src,
+  task,
+  context
+} = require('fuse-box/sparky');
 
 context(
   class {
@@ -26,7 +30,9 @@ context(
               importer: true,
               outputStyle: 'compressed'
             }),
-            CSSResourcePlugin({ dist: 'dist/css-resources' }),
+            CSSResourcePlugin({
+              dist: 'dist/css-resources'
+            }),
             CSSPlugin()
           ],
           ImageBase64Plugin(),
@@ -35,10 +41,11 @@ context(
             template: 'public/index.html'
           }),
           this.isProduction &&
-            QuantumPlugin({
-              uglify: true,
-              css: true
-            })
+          QuantumPlugin({
+            uglify: true,
+            css: true,
+            processPolyfill: true
+          })
         ]
       });
     }
@@ -56,8 +63,8 @@ context(
 
 task('clean', () =>
   src('dist')
-    .clean('dist')
-    .exec()
+  .clean('dist')
+  .exec()
 );
 
 task('create-map', () => {
@@ -65,12 +72,14 @@ task('create-map', () => {
   const imageToTile = require('image-to-tile');
   const sharp = require('sharp');
   sharp(path.join(__dirname, './src/assets/imgs/worldMap.png'))
-    .png({ progressive: true })
+    .png({
+      progressive: true
+    })
     .tile({
       depth: 'onepixel',
       layout: 'google'
     })
-    .toFile(path.join(__dirname, './dist/assets') + '/map', function(
+    .toFile(path.join(__dirname, './dist/assets') + '/map', function (
       err,
       info
     ) {
